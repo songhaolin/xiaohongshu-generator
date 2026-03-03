@@ -1,0 +1,103 @@
+{
+  "life_tips_template": {
+    "title_pattern": ["{topic}有妙招！{number}个方法轻松解决", "{topic}怎么办？这招太实用了！", "原来{topic}这么简单，{number}招搞定"],
+    "structure": {
+      "intro": "描述问题 + 引出妙招",
+      "steps": "3-5个具体步骤，每个包含：名称+做法+原理",
+      "effect": "效果评级（⭐⭐⭐⭐⭐）",
+      "cost": "成本说明",
+      "tips": "小贴士/注意事项",
+      "engagement": "互动提问"
+    },
+    "image_style": "清新实用风，明亮色调，生活化场景",
+    "hashtags": ["生活小妙招", "实用技巧", "生活技巧", "干货分享"],
+    "search_keywords": ["{topic}小妙招", "{topic}技巧", "{topic}方法", "生活常识"]
+  },
+  "encyclopedia_template": {
+    "title_pattern": ["{topic}？这个答案你绝对不知道！", "{topic}的秘密，终于找到了！", "为什么{topic}？科学解释来了"],
+    "structure": {
+      "question": "提出问题",
+      "answer": "详细解释（通俗易懂）",
+      "principle": "科学原理",
+      "fun_facts": "3-5个趣味冷知识",
+      "extension": "延伸知识",
+      "engagement": "互动提问"
+    },
+    "image_style": "科技感/知识感，简洁专业，图示化",
+    "hashtags": ["百科知识", "十万个为什么", "科普", "冷知识", "涨知识"],
+    "search_keywords": ["{topic}原理", "{topic}为什么", "{topic}是什么", "{topic}科普"]
+  },
+  "earth_scenery_template": {
+    "title_pattern": ["地球最美的地方：{scenery_name}", "一生必去！{scenery_name}", "{scenery_name}：人间仙境"],
+    "structure": {
+      "intro": "震撼开场 + 位置介绍",
+      "why_beautiful": "为什么美（特色）",
+      "highlights": "3-5个必打卡景点",
+      "best_time": "最佳旅游时间",
+      "travel_guide": "交通/住宿/预算",
+      "tips": "注意事项",
+      "engagement": "想去吗？互动提问"
+    },
+    "image_style": "震撼风景，高清摄影风，真实照片风格",
+    "hashtags": ["地球美景", "旅行推荐", "世界美景", "旅游攻略", "风景"],
+    "search_keywords": ["{scenery_name}旅游", "{scenery_name}攻略", "{scenery_name}最佳时间", "{scenery_name}景点"]
+  },
+  "bedtime_story_template": {
+    "title_pattern": ["🌙 晚安故事：{story_title}", "🌙 第{number}夜：{story_title}", "晚安：{story_title}"],
+    "structure": {
+      "opening": "🌙 晚安故事\n第 XX 夜",
+      "story_title": "故事标题",
+      "story_body": "故事正文（800-1500字，文艺优美）",
+      "story_insight": "🌟 故事小感悟",
+      "closing": "晚安祝福 + 关注引导"
+    },
+    "image_style": "唯美梦幻，柔和治愈风，插画/水彩风格",
+    "hashtags": ["睡前故事", "治愈系", "晚安", "温暖故事", "睡前时间"],
+    "story_elements": {
+      "healing": {
+        "themes": ["陪伴", "理解", "接纳", "希望"],
+        "settings": ["深夜便利店", "星空下", "小咖啡馆", "海边"],
+        "tone": "温暖、治愈、温柔"
+      },
+      "romance": {
+        "themes": ["初遇", "暗恋", "甜蜜", "美好"],
+        "settings": ["樱花树下", "图书馆", "咖啡馆", "夕阳"],
+        "tone": "轻甜、文艺、美好"
+      },
+      "fairy_tale": {
+        "themes": ["成长", "选择", "勇气", "自我"],
+        "settings": ["魔法森林", "云端城堡", "时间商店", "梦境"],
+        "tone": "梦幻、唯美、有寓意"
+      }
+    },
+    "search_keywords": ["治愈系故事", "睡前故事", "温暖故事", "晚安故事", "情感故事"]
+  },
+  "children_story_template": {
+    "title_pattern": ["🎭 儿童故事：{story_title}", "{emoji}儿童故事时间：{story_title}"],
+    "structure": {
+      "opening": "🎭 儿童故事时间\n第 XX 期",
+      "story_title": "故事标题",
+      "story_body": "故事正文（500-1000字，语言简单生动）",
+      "moral": "🌟 故事小道理",
+      "interaction": {
+        "questions": "2-3个互动问题（宝妈问宝宝）",
+        "activity": "相关活动建议"
+      },
+      "info": {
+        "age": "适合年龄",
+        "reading_time": "阅读时间",
+        "educational_value": "教育意义"
+      },
+      "closing": "关注引导 + 明天预告"
+    },
+    "image_style": "卡通可爱，色彩鲜艳，儿童插画风格",
+    "hashtags": ["儿童故事", "睡前故事", "宝妈必读", "亲子阅读", "品格教育"],
+    "story_types": {
+      "fairy_tale": "经典童话，强调寓意和教育",
+      "fable": "寓言故事，强调品德和道理",
+      "science": "科普故事，强调知识和趣味",
+      "habit": "习惯养成，强调行为和习惯"
+    },
+    "search_keywords": ["儿童故事", "睡前故事", "亲子阅读", "{story_title}故事"]
+  }
+}
