@@ -1,0 +1,35 @@
+{
+  "theme": "life_tips",
+  "required_sections": [
+    "title",
+    "opening",
+    "solutions",
+    "pitfalls",
+    "summary",
+    "engagement",
+    "hashtags"
+  ],
+  "content_limits": {
+    "body_min_chars": 180,
+    "body_max_chars": 380,
+    "solution_min_count": 3,
+    "solution_max_count": 4,
+    "hashtags_min_count": 4,
+    "hashtags_max_count": 6
+  },
+  "science_gate": {
+    "required_sources": 3,
+    "required_authority_sources": 1,
+    "evidence_level_allow": [
+      "verified",
+      "conditional"
+    ],
+    "block_if_insufficient": true
+  },
+  "forbidden_claims_keywords": [
+    "立刻见效",
+    "包治百病",
+    "绝对有效",
+    "神奇偏方"
+  ]
+}

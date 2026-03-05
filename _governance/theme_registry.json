@@ -1,0 +1,12 @@
+{
+  "schema_version": "2.0",
+  "status_flow": [
+    "pending",
+    "generated",
+    "verified",
+    "published",
+    "archived"
+  ],
+  "themes": [],
+  "last_updated": "2026-03-05T16:30:13"
+}

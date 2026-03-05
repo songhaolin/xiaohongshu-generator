@@ -1,0 +1,14 @@
+{
+  "theme": "factual",
+  "science_gate": {
+    "required_sources": 3,
+    "required_authority_sources": 1,
+    "required_fields": [
+      "evidence_level",
+      "source_summary",
+      "scope",
+      "risk_notice"
+    ],
+    "block_if_insufficient": true
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "version": "2.0.0",
+  "templates": [
+    {
+      "id": "life_tips.short_mobile.v2",
+      "theme": "生活小妙招",
+      "path": "templates/life_tips/short_mobile.md",
+      "symbol_pack": "templates/symbol_packs/life_tips.json",
+      "validation": "templates/validation_rules/life_tips.json",
+      "description": "手机端短屏模板（1-2次划屏读完）"
+    },
+    {
+      "id": "encyclopedia.mobile.v1",
+      "theme": "百科知识",
+      "path": "templates/encyclopedia/mobile.md",
+      "symbol_pack": "templates/symbol_packs/general.json",
+      "validation": "templates/validation_rules/factual_theme.json",
+      "description": "预留模板，后续按主题细化"
+    },
+    {
+      "id": "earth_scenery.mobile.v1",
+      "theme": "地球美景",
+      "path": "templates/earth_scenery/mobile.md",
+      "symbol_pack": "templates/symbol_packs/general.json",
+      "validation": "templates/validation_rules/factual_theme.json",
+      "description": "预留模板，后续按主题细化"
+    },
+    {
+      "id": "bedtime_story.mobile.v1",
+      "theme": "睡前故事",
+      "path": "templates/bedtime_story/mobile.md",
+      "symbol_pack": "templates/symbol_packs/general.json",
+      "validation": "templates/validation_rules/story_theme.json",
+      "description": "预留模板，后续按主题细化"
+    },
+    {
+      "id": "children_story.mobile.v1",
+      "theme": "儿童故事",
+      "path": "templates/children_story/mobile.md",
+      "symbol_pack": "templates/symbol_packs/general.json",
+      "validation": "templates/validation_rules/story_theme.json",
+      "description": "预留模板，后续按主题细化"
+    },
+    {
+      "id": "gift_guide.mobile.v1",
+      "theme": "送礼指南",
+      "path": "templates/gift_guide/mobile.md",
+      "symbol_pack": "templates/symbol_packs/general.json",
+      "validation": "templates/validation_rules/factual_theme.json",
+      "description": "预留模板，后续按主题细化"
+    }
+  ]
+}

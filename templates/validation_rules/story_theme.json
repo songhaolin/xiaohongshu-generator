@@ -1,0 +1,15 @@
+{
+  "theme": "story",
+  "story_gate": {
+    "required_fields": [
+      "target_age_or_audience",
+      "emotion_tone",
+      "interaction_prompt"
+    ],
+    "disallowed_values": [
+      "暴力美化",
+      "极端贬损",
+      "危险行为鼓励"
+    ]
+  }
+}

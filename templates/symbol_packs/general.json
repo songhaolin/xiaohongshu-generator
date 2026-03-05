@@ -1,0 +1,15 @@
+{
+  "theme": "general",
+  "styles": [
+    {
+      "id": "general_clean",
+      "title_suffix_candidates": ["✨", "📌", "💡"],
+      "list_prefix": ["1️⃣", "2️⃣", "3️⃣", "4️⃣"]
+    },
+    {
+      "id": "general_minimal",
+      "title_suffix_candidates": ["·", "•", "◎"],
+      "list_prefix": ["1.", "2.", "3.", "4."]
+    }
+  ]
+}

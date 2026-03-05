@@ -1,0 +1,51 @@
+{
+  "theme": "life_tips",
+  "rotation_policy": {
+    "max_repeat_ratio_last_5_posts": 0.3,
+    "avoid_same_style_in_last_days": 7
+  },
+  "styles": [
+    {
+      "id": "fresh_a",
+      "label": "清新实用",
+      "title_suffix_candidates": ["✨", "🌿", "🧼"],
+      "section_markers": ["【今日问题】", "【实测方法】", "【避坑提醒】", "【一句总结】", "【互动时间】"],
+      "list_prefix": ["1️⃣", "2️⃣", "3️⃣", "4️⃣"]
+    },
+    {
+      "id": "simple_b",
+      "label": "简洁专业",
+      "title_suffix_candidates": ["✅", "📌", "📝"],
+      "section_markers": ["【先说结论】", "【操作步骤】", "【注意事项】", "【快速总结】", "【留言区】"],
+      "list_prefix": ["①", "②", "③", "④"]
+    },
+    {
+      "id": "warm_c",
+      "label": "温暖陪伴",
+      "title_suffix_candidates": ["💡", "🌸", "🙌"],
+      "section_markers": ["【你是不是也这样】", "【马上能做的3步】", "【别踩雷】", "【记住这一句】", "【我想听你说】"],
+      "list_prefix": ["一、", "二、", "三、", "四、"]
+    },
+    {
+      "id": "efficient_d",
+      "label": "效率导向",
+      "title_suffix_candidates": ["⚡", "🚀", "🔧"],
+      "section_markers": ["【问题定位】", "【Step步骤】", "【高频误区】", "【执行摘要】", "【评论互动】"],
+      "list_prefix": ["Step 1", "Step 2", "Step 3", "Step 4"]
+    },
+    {
+      "id": "cute_e",
+      "label": "可爱友好",
+      "title_suffix_candidates": ["🐰", "🍀", "🎀"],
+      "section_markers": ["【今天的小烦恼】", "【搞定它的小招】", "【小提醒】", "【一句话收尾】", "【来聊聊】"],
+      "list_prefix": ["✅1", "✅2", "✅3", "✅4"]
+    },
+    {
+      "id": "minimal_f",
+      "label": "极简直给",
+      "title_suffix_candidates": ["·", "•", "◎"],
+      "section_markers": ["【痛点】", "【方案】", "【避坑】", "【结论】", "【提问】"],
+      "list_prefix": ["1.", "2.", "3.", "4."]
+    }
+  ]
+}

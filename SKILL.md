@@ -1,500 +1,170 @@
----
+﻿---
 name: xiaohongshu-generator
-description: Generate Xiaohongshu (Little Red Book) content including life hacks, encyclopedia knowledge, earth scenery, bedtime stories, and children's stories with 9 AI image prompts and complete copy.
+description: Dynamic Xiaohongshu content system with topic-index governance, scientific validation gates, anti-duplication controls, and template-based generation.
 ---
 
-# Skill Specification: xiaohongshu-generator (Xiaohongshu Content Generator)
+# Skill Specification: xiaohongshu-generator (V2)
 
-## Overview
+## Purpose
 
-You are a "Xiaohongshu (Little Red Book) Content Auto-Generator" that creates content for five major categories:
-1. Life Hacks (生活小妙招)
-2. Encyclopedia Knowledge (百科知识)
-3. Earth Scenery (地球美景)
-4. Bedtime Stories for Adults (睡前故事)
-5. Children's Stories (儿童故事)
+This skill is no longer a fixed 5/6-category generator.
+It is a **dynamic topic governance + generation system**:
 
-User only needs to input content type, and skill automatically generates:
-- 9 AI image prompts
-- Complete copy (title + body + hashtags)
-- Engagement prompts
-- Usage instructions/age recommendations
+1. Build topic index first (Level 1 theme -> Level 2 subtheme -> Level 3 topic list)
+2. Ask user to confirm the index
+3. Generate N items strictly from index status and order
+4. Write back status and ledger after each item
 
-## Usage Patterns
+## Runtime Content Root
 
-### Basic Usage
-```
-Input: "Generate a kitchen cleaning hack"
-Output: Complete Xiaohongshu content (9 image prompts + copy)
-```
+Default output root (current skill root):
 
-### Advanced Usage
-```
-Input: "Generate ocean science knowledge"
-Input: "Tell a bedtime story, healing style"
-Input: "Generate a Tortoise and Hare children's story"
-```
+`C:\Users\song\IdeaProjects\qingshuihe\codex_skills\xiaohongshu-generator`
 
-## Content Generation Rules
+Governance files are stored under:
 
-### 1. Life Hacks (25%)
-```
-Structure:
-- Catchy title (question-based/number-based)
-- Specific steps (3-5 items)
-- Scientific explanation
-- Effect rating (⭐⭐⭐⭐⭐)
-- Cost/difficulty level
-- Tips/notes
+`<content_root>/_governance/`
 
-Title Examples:
-- "Fridge smells bad? 3 easy hacks!"
-- "Kitchen cleaning hacks with things you already have"
+Output root can be user-specified:
 
-Hashtags:
-#生活小妙招 #厨房妙招 #生活技巧 #实用干货
-```
+- CLI parameter: `--content-root "<custom_path>"`
+- Environment variable: `XHS_CONTENT_ROOT`
 
-### 2. Encyclopedia Knowledge (20%)
-```
-Structure:
-- Question title (why/what/how)
-- Detailed explanation
-- Scientific principle/background
-- Fun facts/trivia
-- Summary/interactive question
+Priority order:
 
-Title Examples:
-- "Why is the sky blue? Answer will surprise you!"
-- "Why cats love boxes? Scientific explanation"
+1. `--content-root`
+2. `XHS_CONTENT_ROOT`
+3. default path above
 
-Hashtags:
-#百科知识 #十万个为什么 #科普 #冷知识 #涨知识
-```
+When user explicitly provides an output directory, the skill must use that directory
+for both generated content and governance files.
 
-### 3. Earth Scenery (20%)
-```
-Structure:
-- Location name + feature title
-- Geographic location
-- Why it's beautiful (highlights)
-- Best travel time
-- Must-visit spots (3-5 items)
-- Travel guide (transport/stay/budget)
-- Tips/notes
+## Mandatory Workflow (Hard Rules)
 
-Title Examples:
-- "Earth's Most Beautiful: Lofoten Islands, Norway"
-- "Must Visit! 5 Most Beautiful Places in China"
+### Rule 1: Index-first
+- If user asks for a new theme, output a dedicated topic index JSON first.
+- Do not generate publishable content until user confirms the index.
 
-Hashtags:
-#地球美景 #旅行推荐 #世界美景 #旅游攻略 #风景
-```
+### Rule 2: Dynamic themes
+- Themes are not locked to preset categories.
+- Any user-requested theme can become a new Level 1 theme.
 
-### 4. Bedtime Stories for Adults (20%)
-```
-Structure:
-- 🌙 Bedtime story title
-- Night XX (numbering)
-- Story body (800-1500 words)
-- Story insight
-- Goodnight blessing
+### Rule 3: Status-driven generation
+- Generate topics by status priority:
+  - `pending` -> `generated` -> `verified` -> `published` -> `archived`
+- For "generate N items", always pick from `pending` first.
 
-Story Types:
-- Healing stories (warm companionship)
-- Romance stories (light sweet)
-- Fairy tales (adult version)
-- Life stories (warm daily life)
+### Rule 4: Write-back required
+After each generated item, update:
+- topic status in topic index
+- `content_index.jsonl` ledger entry
+- updated timestamp and metadata counters
 
-Title Examples:
-- "🌙 Bedtime Story: The Shop That Sells Goodnights"
-- "🌸 Bedtime Story: Meeting Under the Cherry Blossoms"
+### Rule 5: Scientific validation gate
+For factual themes (life tips, encyclopedia, scenery, gift guides, etc.):
+- at least 3 sources
+- at least 1 authority source
+- evidence level must be `verified` or `conditional`
+- `insufficient` must be blocked (not publishable)
 
-Hashtags:
-#睡前故事 #治愈系 #晚安 #温暖故事 #睡前时间
-```
+### Rule 6: Anti-duplication
+- title exact-match dedup
+- topic cooldown dedup
+- semantic similarity dedup
+- if duplicate is detected, switch to next candidate topic
 
-### 5. Children's Stories (15%)
-```
-Structure:
-- 🎭 Children's Story Time (emoji + number)
-- Story title
-- Story body (500-1000 words, simple vivid language)
-- 🌟 Story moral
-- 💬 Interaction time (Q&A for parents and kids)
-- 📖 Suitable age/reading time/educational value
+## Topic Index Schema (Required)
 
-Story Types:
-- Classic fairy tales (Andersen/Grimm)
-- Fable stories (Aesop/Idioms)
-- Science stories (animals/plants/nature)
-- Habit building (brushing teeth/sleeping early/politeness)
-- Character education (bravery/honesty/persistence)
-
-Title Examples:
-- "🐰 Children's Story: The Ugly Duckling Becomes a Beautiful Swan"
-- "🐢 Children's Story: Tortoise and Hare, Persistence Wins!"
-
-Hashtags:
-#儿童故事 #睡前故事 #宝妈必读 #亲子阅读 #品格教育
+```json
+{
+  "schema_version": "2.0",
+  "theme": {
+    "id": "theme_xxx",
+    "name": "主题名",
+    "description": "可选描述"
+  },
+  "subthemes": [
+    {
+      "id": "subtheme_xxx",
+      "name": "次级主题",
+      "topics": [
+        {
+          "id": "topic_xxx",
+          "name": "三级主题",
+          "status": "pending",
+          "created_at": "2026-03-05T00:00:00",
+          "updated_at": "2026-03-05T00:00:00"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "total_topics": 20,
+    "status_count": {
+      "pending": 20,
+      "generated": 0,
+      "verified": 0,
+      "published": 0,
+      "archived": 0
+    },
+    "created_at": "2026-03-05T00:00:00",
+    "last_updated": "2026-03-05T00:00:00"
+  }
+}
 ```
 
-## 9-Grid Image Prompt Generation Rules
+## Template System (Decoupled)
 
-### Unified Format
-```
-【封面】Core visual impact, title text, unified style
-【图2-3】Content setup/scene introduction
-【图4-6】Main content expansion
-【图7-8】Summary/elevation/interaction
-【图9】Summary image + hashtags/follow guidance
-```
+Do not hardcode detailed format blocks in this SKILL file.
+Use external template files:
 
-### Style by Category
-- Life Hacks: Fresh practical style, bright colors
-- Encyclopedia: Tech/knowledge feel, clean professional
-- Earth Scenery: Stunning scenery, HD photography style
-- Bedtime Stories: Aesthetic dreamy, soft healing style
-- Children's Stories: Cartoon cute, bright colorful
+- template registry: `templates/_meta/template_registry.json`
+- per-theme templates: `templates/<theme>/...`
+- symbol packs: `templates/symbol_packs/...`
+- validation rules: `templates/validation_rules/...`
 
-## Copy Style Requirements
+## Life Tips Current Production Template
 
-### Overall Tone
-- ✅ Friendly natural, like chatting with friends
-- ✅ Practical useful, provide value
-- ✅ Positive energy, transmit good vibes
-- ✅ Warm, emotional resonance
-- ❌ No preaching, no chicken soup, no fake content
+Use:
+- `templates/life_tips/short_mobile.md`
+- `templates/symbol_packs/life_tips.json`
+- `templates/validation_rules/life_tips.json`
 
-### Language Characteristics
-- Life Hacks: Concise clear, step-by-step
-- Encyclopedia: Professional accessible, interesting easy
-- Earth Scenery: Vivid description, visual imagery
-- Bedtime Stories: Literary beautiful, healing warm
-- Children's Stories: Simple vivid, suitable for reading
+Key constraints:
+- body 180-320 chars (max 380)
+- 3-4 solutions only
+- mobile readable in 1-2 scrolls
+- style symbols must rotate to reduce AI homogenization
 
-## Output Format
+## Scientific Validation Knowledge Sources
 
-Each content must include:
+Use governance verification files first:
+- `<content_root>/_governance/verification/verified_claims.json`
+- `<content_root>/_governance/verification/conditional_claims.json`
+- `<content_root>/_governance/verification/banned_claims.json`
 
-```markdown
-**Title**: [Catchy Title]
+Then perform real-time web search for current evidence.
 
-**9 AI Image Prompts**:
-【封面】Detailed description
-【图2】Detailed description
-...
-【图9】Detailed description
+## CLI Helper Script
 
-**Body Copy**:
-[Complete copy including title + body + hashtags]
+Use `scripts/generator.py` for local governance operations:
 
-**Engagement Prompt**:
-[Question/prompt for user comments]
+- `create-topic-index`
+- `plan-topics`
+- `mark-status`
+- `add-record`
+- `show-life-tips-template`
 
-**Publishing Time Suggestion**:
-[Morning 09:00 / Evening 21:00]
+All commands accept optional output-root override:
 
-**Usage Instructions**:
-[Age/scene/notes]
-```
+`python scripts/generator.py --content-root "C:\\path\\to\\output" <command> ...`
 
-## Core Execution Flow (Critical!)
+## Quality Checklist
 
-### Real-time Search + Template Generation Mode
-
-```
-User Input → Topic Selection → Real-time Search → Information Integration → Template Application → Content Output
-```
-
-### Detailed Execution Steps
-
-#### Step 1: Understand User Request
-```
-Identify user intent:
-- Specified category: "Generate a kitchen hack" → life_tips/kitchen
-- Specified topic: "Generate about fireflies" → encyclopedia/animals
-- Completely random: "Generate content" → Random selection by weight
-```
-
-#### Step 2: Select Topic
-```
-Select from data/topics_index.json:
-- If user specified category → Select topic from subcategory
-- If user specified topic → Use that topic directly
-- If user unspecified → Randomly select category and topic by weight
-```
-
-#### Step 3: Generate Search Keywords
-```
-Generate search keywords based on topic and template:
-- Get template from data/generation_templates.json
-- Generate 3-5 search keywords
-- Example: "Fridge odor removal hacks, Fridge deodorizing tips, Life hacks"
-```
-
-#### Step 4: Real-time Search
-```
-Use WebSearch tool to search:
-- Use generated keywords
-- Get latest, most accurate information
-- Cross-validate from multiple sources
-- Extract key information points
-```
-
-#### Step 5: Integrate Search Results
-```
-Process search results:
-- Extract core information (3-5 key points)
-- Remove duplicates and low-quality content
-- Keep data support (numbers, principles, effects)
-- Organize into clear logical structure
-```
-
-#### Step 6: Apply Generation Template
-```
-Apply corresponding template based on category:
-- Life Hacks: Steps + Principles + Effects + Costs
-- Encyclopedia: Answers + Principles + Fun Facts
-- Earth Scenery: Location + Features + Guides
-- Bedtime Stories: Original generation (AI combines elements)
-- Children's Stories: Classic adaptation or science explanation
-```
-
-#### Step 7: Generate 9-Grid Image Prompts
-```
-Generate image prompts based on content type:
-- Cover: Core visual impact
-- Images 2-3: Setup/Introduction
-- Images 4-6: Main content expansion
-- Images 7-8: Summary/Elevation
-- Image 9: Interaction guide
-```
-
-#### Step 8: Generate Complete Copy
-```
-Generate according to template structure:
-- Title (Catchy)
-- Body (Clear paragraphs)
-- Hashtags (Relevant)
-- Engagement guide (Trigger comments)
-```
-
-#### Step 9: Output Complete Content
-```
-Output format:
-**Title**: xxx
-**9 AI Image Prompts**: xxx
-**Body Copy**: xxx
-**Engagement Prompt**: xxx
-**Publishing Time Suggestion**: xxx
-**Usage Instructions**: xxx
-```
-
-### Knowledge Base Structure
-
-```
-data/
-├── topics_index.json          # Topic index (lightweight)
-│   ├── 5 major categories
-│   ├── 20+ subcategories
-│   └── 200+ topics
-│
-└── generation_templates.json  # Generation templates
-    ├── 5 content type templates
-    ├── Title patterns
-    ├── Content structures
-    └── Image styles
-```
-
-### Key Advantages
-
-**Compared to Traditional Approach:**
-
-| Dimension | Traditional | This Approach |
-|-----------|------------|---------------|
-| Knowledge Base Size | 50-100MB | 30KB |
-| Content Freshness | Can be outdated | Always latest |
-| Maintenance Cost | Manual updates | Zero maintenance |
-| Scalability | Limited to preset | Unlimited |
-| Information Accuracy | May be outdated | Real-time verified |
-
-**Why This Approach is Better:**
-
-1. **Lightweight**: Only store topic index, not full content
-2. **Real-time**: Search for latest info every time
-3. **Accurate**: Multi-source validation, reliable info
-4. **Scalable**: Topic library can grow infinitely
-5. **Zero Maintenance**: No manual knowledge base updates needed
-
-## Constraints
-
-1. Each content must have clear value (practical/knowledge/emotional)
-2. Content must be authentic and reliable, no fake information
-3. Copy length moderate (500-1500 words)
-4. Image prompts detailed and specific, suitable for AI painting
-5. Hashtags relevant and effective
-6. Engagement prompts trigger user participation
-
-## Monetization Tips
-
-Content generated by this skill is suitable for:
-- Brand advertising after follower accumulation
-- Knowledge payment (paid story database)
-- Mom-baby brand collaboration (children's stories)
-- Travel/home brand promotion
-- Paid columns/courses
-
-Long-term operation can build personal IP, achieving monthly income 10,000-50,000 RMB.
-
----
-
-## Usage Examples (Must Follow)
-
-### Example 1: Life Hacks
-```
-User Input: "Generate a kitchen cleaning hack"
-
-Execution Flow:
-1. Identify category: life_tips/kitchen
-2. Select topic: Random from topic library (e.g., "Fridge odor removal")
-3. Generate search keywords: "Fridge odor removal hacks, Fridge deodorizing, Fridge smell"
-4. WebSearch: Get 3-5 effective methods
-5. Integrate info: Extract steps, principles, effects
-6. Generate content: Complete content by template
-7. Output: 9 image prompts + copy
-```
-
-### Example 2: Encyclopedia Knowledge
-```
-User Input: "Why do fireflies glow?"
-
-Execution Flow:
-1. Identify category: encyclopedia/animals
-2. Select topic: Fireflies glowing
-3. Generate search keywords: "Firefly glow principle, Why fireflies glow, Firefly science"
-4. WebSearch: Get scientific explanation, principles, fun facts
-5. Integrate info: Extract answer, principles, trivia
-6. Generate content: Science content by template
-7. Output: 9 image prompts + copy
-```
-
-### Example 3: Bedtime Stories
-```
-User Input: "Tell a healing bedtime story"
-
-Execution Flow:
-1. Identify category: bedtime_stories/healing
-2. Select theme elements: Companionship/Warmth/Healing
-3. Generate search keywords: "Healing stories, Warm stories, Goodnight stories"
-4. WebSearch: Get style references (no plagiarism)
-5. AI original creation: Create brand new story based on elements
-6. Generate content: 800-1500 words healing story
-7. Output: 9 image prompts + copy
-```
-
----
-
-## Important Notes (Critical!)
-
-### ⚠️ Must Follow Rules
-
-1. **Real-time Search is Mandatory**
-   - ✅ Must use WebSearch for latest information
-   - ❌ Cannot use preset fixed content
-   - ❌ Cannot fabricate false information
-
-2. **Information Integration Must Be Accurate**
-   - ✅ Multi-source validation for accuracy
-   - ✅ Extract key points (3-5 items)
-   - ✅ Keep data support (numbers, principles)
-   - ❌ Cannot exaggerate or fabricate effects
-
-3. **Content Originality**
-   - ✅ Search results only as information source
-   - ✅ Must reorganize in your own language
-   - ✅ Story-type must be AI original, no plagiarism
-   - ❌ Cannot directly copy search results
-
-4. **User Experience First**
-   - ✅ Content must have value (practical/knowledge/emotional)
-   - ✅ Engagement guides must trigger participation
-   - ✅ Suitable for Xiaohongshu platform style
-   - ❌ No pure ads or meaningless content
-
-### 📋 Quality Checklist
-
-After generating content, must check:
-- [ ] Title is catchy
-- [ ] Information is accurate
-- [ ] Structure is clear
-- [ ] Language is natural
-- [ ] Engagement is effective
-- [ ] Hashtags are relevant
-- [ ] Image prompts are detailed
-
----
-
-## FAQ Handling
-
-### Q: What if user input is very vague?
-```
-User: "Generate content"
-Handling:
-1. Randomly select category by weight
-2. Randomly select subcategory and topic
-3. After generation, inform user what type was generated
-```
-
-### Q: What if search results are poor quality?
-```
-Handling:
-1. Try different keyword combinations
-2. Cross-validate from multiple search sources
-3. If truly no information found, inform user and suggest changing topic
-```
-
-### Q: What if user requests specific topic not in topic library?
-```
-User: "Generate quantum physics science"
-Handling:
-1. Directly use user-specified topic
-2. Real-time search for related information
-3. Generate content
-4. Optional: Add new topic to topic library
-```
-
----
-
-## Monetization Path Recommendations
-
-### Phase 1 (1-3 months): Build-up
-```
-Target: 5000-10000 followers
-Strategy:
-- 2 posts daily (morning + evening)
-- Maintain content quality
-- Accumulate follower trust
-- Don't rush monetization
-```
-
-### Phase 2 (3-6 months): Growth
-```
-Target: 10000-50000 followers
-Monetization:
-- Join Dandelion platform (official)
-- Brand ads (3000-10000 RMB/post)
-- Product links (commission 5%-20%)
-Monthly income: 5000-15000 RMB
-```
-
-### Phase 3 (6-12 months): Stable
-```
-Target: 50000-200000 followers
-Monetization:
-- Long-term brand collaborations (monthly fee)
-- Paid content columns
-- Knowledge payment courses
-- Multi-platform distribution
-Monthly income: 20000-50000 RMB
-```
+Before outputting publishable content:
+- [ ] topic selected from confirmed index
+- [ ] status transition is valid
+- [ ] anti-duplication checks passed
+- [ ] scientific gate passed (if factual)
+- [ ] template structure is complete
+- [ ] ledger write-back completed

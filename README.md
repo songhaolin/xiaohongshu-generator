@@ -1,254 +1,120 @@
-# 小红书内容生成器 (Xiaohongshu Content Generator)
+﻿# 小红书内容生成器（V2）
 
-## 🎯 功能介绍
+## 概览
 
-这是一个完全自动化的小红书内容生成skill，支持五大板块内容：
+V2 从“固定分类随机生成”升级为“动态主题治理 + 索引驱动生成”。
 
-1. **生活小妙招** - 厨房/家居/生活技巧
-2. **百科知识** - 科学/动物/人体/科技知识
-3. **地球美景** - 国内/国际自然与城市景观
-4. **睡前故事** - 成人向治愈系/浪漫/童话故事
-5. **儿童故事** - 经典童话/寓言/科普/习惯养成
+核心变化：
+- 主题不锁死：可按用户需求创建新主题
+- 先索引后生成：必须先确认主题索引 JSON
+- 按状态推进：pending -> generated -> verified -> published -> archived
+- 科学门禁：事实类内容未通过证据门禁不得发布
+- 模板解耦：模板独立存储于 templates 目录
 
-## ⚡ 核心特性
+## 目录结构
 
-- ✅ **零知识库维护**：只存储选题索引，实时搜索最新信息
-- ✅ **100%自动化**：输入一个类型，自动生成完整内容
-- ✅ **内容永远最新**：每次都实时搜索，信息实时更新
-- ✅ **轻量级**：知识库仅几十KB，而非几百MB
-- ✅ **可无限扩展**：选题库可无限增加
-
-## 🚀 使用方式
-
-### 方式1：指定分类生成
-
-```
-用户输入："生成一个厨房小妙招"
-Claude执行：
-1. 从选题库选择主题（如：冰箱去异味）
-2. WebSearch搜索"冰箱去异味小妙招"
-3. 整合搜索结果
-4. 按模板生成完整内容
-5. 输出：9张图提示词 + 完整文案
-```
-
-### 方式2：完全随机生成
-
-```
-用户输入："生成一条内容"
-Claude执行：
-1. 随机选择分类和主题
-2. 实时搜索相关信息
-3. 生成完整内容
-4. 输出
-```
-
-### 方式3：指定关键词生成
-
-```
-用户输入："生成关于'萤火虫发光'的科普知识"
-Claude执行：
-1. 确定分类为"百科知识-动物知识"
-2. WebSearch搜索"萤火虫发光原理"
-3. 生成科普内容
-4. 输出
-```
-
-## 📁 目录结构
-
-```
+```text
 xiaohongshu-generator/
-├── SKILL.md                    # Skill英文说明
-├── SKILL.zh-CN.md              # Skill中文说明
-├── README.md                   # 本文档
-├── data/                       # 数据目录
-│   ├── topics_index.json       # 选题索引（轻量）
-│   └── generation_templates.json # 生成模板
-├── scripts/                    # 脚本目录
-│   └── generator.py           # 核心生成逻辑
-└── examples/                   # 示例输出
-    └── example_output.md       # 输出示例
+├── SKILL.md
+├── SKILL.zh-CN.md
+├── data/
+│   ├── topics_index.json
+│   ├── generation_templates.json
+│   └── governance_defaults.json
+├── scripts/
+│   └── generator.py
+├── templates/
+│   ├── _meta/template_registry.json
+│   ├── life_tips/short_mobile.md
+│   ├── symbol_packs/
+│   └── validation_rules/
+└── examples/
 ```
 
-## 🎨 输出格式
+运行期治理目录（位于 `<content_root>`）：
 
-每条内容包含：
-
-```markdown
-**标题**：【吸睛标题】
-
-**9张图片AI提示词**：
-【封面】详细描述
-【图2】详细描述
-...
-【图9】详细描述
-
-**正文文案**：
-【完整文案内容】
-
-**互动引导语**：
-【提问/引导用户评论】
-
-**发布建议时间**：
-【早场09:00 / 晚场21:00】
-
-**适用说明**：
-【年龄/场景/注意事项】
+```text
+<content_root>/
+└── _governance/
+    ├── theme_registry.json
+    ├── topic_index.<theme>.json
+    ├── content_index.jsonl
+    └── verification/
+        ├── verified_claims.json
+        ├── conditional_claims.json
+        └── banned_claims.json
 ```
 
-## 💡 使用技巧
+输出目录规则：
+- 默认（当前技能根目录）：`C:\Users\song\IdeaProjects\qingshuihe\codex_skills\xiaohongshu-generator`
+- 可覆盖：`--content-root "<自定义目录>"` 或环境变量 `XHS_CONTENT_ROOT`
+- 优先级：参数 > 环境变量 > 默认目录
 
-### 1. 每日发布节奏
+## 常用命令
 
-```
-早场 (09:00)：
-- 周一：生活小妙招
-- 周二：生活小妙招
-- 周三：生活小妙招
-- 周四：生活小妙招
-- 周五：百科知识
-- 周六：地球美景
-- 周日：百科知识
+### 1. 创建主题索引
 
-晚场 (21:00)：
-- 周一：百科知识
-- 周二：地球美景
-- 周三：百科知识
-- 周四：地球美景
-- 周五：睡前故事
-- 周六：儿童故事
-- 周日：儿童故事
+```bash
+python codex_skills/xiaohongshu-generator/scripts/generator.py create-topic-index \
+  --theme "租房生活指南" \
+  --subthemes "厨房:收纳,去油污;卧室:防潮,除味"
 ```
 
-### 2. 操作流程（每天≤30分钟）
+自定义输出目录示例：
 
-```
-1. 输入需求（1分钟）
-   "生成一个厨房小妙招"
-
-2. Claude生成内容（等待5-10分钟）
-   - 实时搜索
-   - 整合信息
-   - 生成内容
-
-3. 验收确认（2分钟）
-   检查内容是否满意
-
-4. 生成图片（10分钟）
-   使用AI绘画工具生成9张图
-
-5. 发布（3分钟）
-   上传图片+文案，点击发布
-
-6. 重复（4分钟）
-   生成第二条内容
-
-总计：20-30分钟
+```bash
+python codex_skills/xiaohongshu-generator/scripts/generator.py \
+  --content-root "D:\\xhs_content" \
+  create-topic-index \
+  --theme "租房生活指南" \
+  --subthemes "厨房:收纳,去油污;卧室:防潮,除味"
 ```
 
-### 3. 变现路径
+### 2. 规划待生成话题（生成 N 条前）
 
-```
-第一阶段（1-3个月）：
-- 专注内容质量
-- 积累粉丝5000-10000
-
-第二阶段（3-6个月）：
-- 开通蒲公英平台
-- 开始接品牌广告
-- 月收入：3000-10000元
-
-第三阶段（6-12个月）：
-- 粉丝50000+
-- 品牌长期合作
-- 付费内容
-- 月收入：10000-50000元
+```bash
+python codex_skills/xiaohongshu-generator/scripts/generator.py plan-topics \
+  --index "codex_skills/xiaohongshu-generator/_governance/topic_index.theme_xxx.json" \
+  --count 3
 ```
 
-## 🔄 更新知识库
+### 3. 更新话题状态
 
-### 添加新选题
-
-编辑 `data/topics_index.json`：
-
-```json
-{
-  "id": "kitchen",
-  "name": "厨房妙招",
-  "topics": [
-    "冰箱去异味",
-    "菜板杀菌",
-    "新选题1",
-    "新选题2"
-  ]
-}
+```bash
+python codex_skills/xiaohongshu-generator/scripts/generator.py mark-status \
+  --index "codex_skills/xiaohongshu-generator/_governance/topic_index.theme_xxx.json" \
+  --status generated \
+  --topic-ids topic_a topic_b
 ```
 
-### 添加新分类
+### 4. 写入内容台账
 
-在 `data/topics_index.json` 的 `categories` 数组中添加新分类。
-
-### 修改生成模板
-
-编辑 `data/generation_templates.json`，调整标题模式、结构、风格等。
-
-## ⚙️ 技术原理
-
-```
-用户输入
-    ↓
-选择选题（从 topics_index.json）
-    ↓
-生成搜索关键词
-    ↓
-WebSearch 实时搜索
-    ↓
-整合搜索结果
-    ↓
-应用生成模板（generation_templates.json）
-    ↓
-生成完整内容
-    ↓
-输出
+```bash
+python codex_skills/xiaohongshu-generator/scripts/generator.py add-record \
+  --theme-id theme_xxx \
+  --subtheme-id subtheme_xxx \
+  --topic-id topic_xxx \
+  --title "示例标题" \
+  --file-path "生活小妙招/厨房/2026-03-05-001-示例.md"
 ```
 
-## 📊 数据说明
+### 5. 查看生活小妙招模板
 
-### topics_index.json（约20KB）
-- 5大分类
-- 20+子分类
-- 200+选题
-- 可无限扩展
+```bash
+python codex_skills/xiaohongshu-generator/scripts/generator.py show-life-tips-template --pick-style
+```
 
-### generation_templates.json（约10KB）
-- 5种内容类型的模板
-- 标题模式
-- 内容结构
-- 图片风格
-- 话题标签
+## 生活小妙招模板约束（已落地）
 
-### 总大小：约30KB
+- 正文 180-320 字，最大 380 字
+- 仅 3-4 个解决方案
+- 适配手机端 1-2 次划屏
+- 使用多风格符号包轮换，降低 AI 同质化
 
-对比传统方案（存储所有原文）：约50-100MB
+## 验证要求
 
-## ❓ 常见问题
+提交前至少执行：
 
-**Q: 内容质量如何保证？**
-A: 通过实时搜索获取最新、最准确的信息，由AI整合生成，确保内容质量。
-
-**Q: 选题会重复吗？**
-A: 选题库有200+主题，且支持随机选择，重复概率很低。也可以手动指定选题。
-
-**Q: 可以自定义生成风格吗？**
-A: 可以编辑 `generation_templates.json` 中的模板，自定义标题、结构、风格等。
-
-**Q: 支持其他平台吗？**
-A: 生成的内容是小红书风格（9宫格+文案），理论上也适用于其他图文平台。
-
-## 📞 反馈与建议
-
-如有问题或建议，请提交issue或直接联系。
-
-## 📄 许可证
-
-MIT License
+```bash
+python -m py_compile codex_skills/xiaohongshu-generator/scripts/generator.py
+```
