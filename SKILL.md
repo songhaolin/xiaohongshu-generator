@@ -1,4 +1,4 @@
-﻿---
+---
 name: xiaohongshu-generator
 description: Dynamic Xiaohongshu content system with topic-index governance, scientific validation gates, anti-duplication controls, and template-based generation.
 ---
@@ -122,6 +122,79 @@ Use external template files:
 - per-theme templates: `templates/<theme>/...`
 - symbol packs: `templates/symbol_packs/...`
 - validation rules: `templates/validation_rules/...`
+
+## Output Directory Structure
+
+### Content Storage
+
+```text
+<content_root>/
+├── encyclopedia/                    # 百科知识
+│   ├── 宇宙探索/
+│   │   ├── 001-黑洞的形成与特性.md
+│   │   └── 002-系外行星探索.md
+│   ├── 地球科学/
+│   │   └── 001-板块构造理论.md
+│
+├── life_tips/                       # 生活小妙招
+│   ├── 厨房/
+│   │   ├── 001-冰箱去异味.md
+│   │   └── 002-调料瓶清洁.md
+│   └── 浴室/
+│       └── 001-浴室除霉.md
+```
+
+### File Naming Convention
+
+**Format**: `{序号}-{标题}.md`
+
+**Rules**:
+- 序号：3位数字（001, 002, ...），每个次级主题独立编号
+- 标题：中文，与内容标题一致
+- 连接符：使用 `-`（短横线）
+
+**Examples**:
+- `001-黑洞的形成与特性.md`
+- `002-系外行星探索.md`
+- `023-冰箱去异味.md`
+
+### Metadata Management
+
+**DO**:
+- ✅ Use `_governance/content_index.jsonl` for unified metadata storage
+
+**DON'T**:
+- ❌ Create separate `.metadata.json` files alongside content files
+
+### content_index.jsonl Entry Schema
+
+```json
+{
+  "content_id": "encyclopedia_001",
+  "topic_id": "topic_enc_001",
+  "theme": "百科知识",
+  "subtheme": "宇宙探索",
+  "title": "黑洞的形成与特性",
+  "file_path": "encyclopedia/宇宙探索/001-黑洞的形成与特性.md",
+  "status": "generated",
+  "generated_at": "2026-03-06T00:00:00",
+  "word_count": 593,
+  "evidence_level": "verified",
+  "sources": ["来源1", "来源2", "来源3"]
+}
+```
+
+**Required Fields**:
+- `content_id`: Unique content identifier
+- `topic_id`: Associated topic ID from index
+- `theme`: Level 1 theme name
+- `subtheme`: Level 2 subtheme name
+- `title`: Content title
+- `file_path`: Relative path from content_root
+- `status`: One of: pending, generated, verified, published, archived
+- `generated_at`: ISO 8601 timestamp
+- `evidence_level`: One of: verified, conditional, insufficient (factual themes only)
+- `sources`: Array of source references (factual themes only)
 
 ## Life Tips Current Production Template
 

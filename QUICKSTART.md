@@ -43,8 +43,10 @@ python codex_skills/xiaohongshu-generator/scripts/generator.py add-record \
   --subtheme-id subtheme_xxx \
   --topic-id topic_xxx \
   --title "内容标题" \
-  --file-path "相对路径/xxx.md"
+  --file-path "encyclopedia/宇宙探索/001-黑洞的形成与特性.md"
 ```
+
+**注意**：file-path使用二级目录结构，文件命名格式为 `001-标题.md`
 
 ## 4) 事实类内容做科学门禁
 
@@ -61,3 +63,37 @@ python codex_skills/xiaohongshu-generator/scripts/generator.py show-life-tips-te
 ```
 
 模板约束：180-320 字、3-4 条方案、1-2 屏读完。
+
+## 输出目录规范
+
+### 文件存储结构
+
+```text
+<content_root>/
+├── encyclopedia/                    # 百科知识
+│   ├── 宇宙探索/
+│   │   ├── 001-黑洞的形成与特性.md
+│   │   └── 002-系外行星探索.md
+│   └── 地球科学/
+│       └── 001-板块构造理论.md
+│
+├── life_tips/                       # 生活小妙招
+│   ├── 厨房/
+│   │   ├── 001-冰箱去异味.md
+│   │   └── 002-调料瓶清洁.md
+│   └── 浴室/
+│       └── 001-浴室除霉.md
+```
+
+### 文件命名规则
+
+**格式**：`{序号}-{标题}.md`
+
+- 序号：3位数字（001, 002, ...）
+- 每个次级主题独立编号
+- 标题：中文，与内容一致
+
+### 元数据管理
+
+- ✅ 使用：`_governance/content_index.jsonl` 统一管理
+- ❌ 不再使用：独立的 `.metadata.json` 文件

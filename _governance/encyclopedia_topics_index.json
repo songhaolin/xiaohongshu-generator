@@ -1,0 +1,292 @@
+{
+  "schema_version": "2.0",
+  "theme": {
+    "id": "theme_encyclopedia_001",
+    "name": "百科知识",
+    "description": "涵盖自然、科学、历史、文化、艺术、技术等多个领域的综合性知识库"
+  },
+  "subthemes": [
+    {
+      "id": "subtheme_enc_001",
+      "name": "宇宙探索",
+      "topics": [
+        {"id": "topic_enc_001", "name": "黑洞的形成与特性", "status": "generated", "generated_at": "2026-03-06T00:00:00"},
+        {"id": "topic_enc_002", "name": "系外行星探索", "status": "pending"},
+        {"id": "topic_enc_003", "name": "恒星的生命周期", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_002",
+      "name": "地球科学",
+      "topics": [
+        {"id": "topic_enc_004", "name": "板块构造理论", "status": "pending"},
+        {"id": "topic_enc_005", "name": "火山类型与喷发机制", "status": "pending"},
+        {"id": "topic_enc_006", "name": "气候变化科学", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_003",
+      "name": "海洋奥秘",
+      "topics": [
+        {"id": "topic_enc_007", "name": "深海生态系统", "status": "pending"},
+        {"id": "topic_enc_008", "name": "洋流与气候影响", "status": "pending"},
+        {"id": "topic_enc_009", "name": "海洋生物多样性", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_004",
+      "name": "植物王国",
+      "topics": [
+        {"id": "topic_enc_010", "name": "光合作用原理", "status": "pending"},
+        {"id": "topic_enc_011", "name": "植物防御机制", "status": "pending"},
+        {"id": "topic_enc_012", "name": "稀有植物物种", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_005",
+      "name": "动物世界",
+      "topics": [
+        {"id": "topic_enc_013", "name": "动物迁徙行为", "status": "pending"},
+        {"id": "topic_enc_014", "name": "社会性昆虫", "status": "pending"},
+        {"id": "topic_enc_015", "name": "濒危物种保护", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_006",
+      "name": "人体奥秘",
+      "topics": [
+        {"id": "topic_enc_016", "name": "大脑神经可塑性", "status": "pending"},
+        {"id": "topic_enc_017", "name": "免疫系统机制", "status": "pending"},
+        {"id": "topic_enc_018", "name": "睡眠科学", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_007",
+      "name": "微观世界",
+      "topics": [
+        {"id": "topic_enc_019", "name": "细菌与抗生素", "status": "pending"},
+        {"id": "topic_enc_020", "name": "病毒传播机制", "status": "pending"},
+        {"id": "topic_enc_021", "name": "真菌生态系统", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_008",
+      "name": "化学元素",
+      "topics": [
+        {"id": "topic_enc_022", "name": "元素周期表规律", "status": "pending"},
+        {"id": "topic_enc_023", "name": "稀有气体应用", "status": "pending"},
+        {"id": "topic_enc_024", "name": "放射性元素", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_009",
+      "name": "物理定律",
+      "topics": [
+        {"id": "topic_enc_025", "name": "相对论基础", "status": "pending"},
+        {"id": "topic_enc_026", "name": "量子力学现象", "status": "pending"},
+        {"id": "topic_enc_027", "name": "热力学定律", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_010",
+      "name": "能源科技",
+      "topics": [
+        {"id": "topic_enc_028", "name": "核能发电原理", "status": "pending"},
+        {"id": "topic_enc_029", "name": "太阳能技术", "status": "pending"},
+        {"id": "topic_enc_030", "name": "氢能未来", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_011",
+      "name": "人工智能",
+      "topics": [
+        {"id": "topic_enc_031", "name": "机器学习基础", "status": "pending"},
+        {"id": "topic_enc_032", "name": "神经网络原理", "status": "pending"},
+        {"id": "topic_enc_033", "name": "AI伦理问题", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_012",
+      "name": "数字技术",
+      "topics": [
+        {"id": "topic_enc_034", "name": "区块链技术", "status": "pending"},
+        {"id": "topic_enc_035", "name": "5G通信技术", "status": "pending"},
+        {"id": "topic_enc_036", "name": "云计算架构", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_013",
+      "name": "工程奇迹",
+      "topics": [
+        {"id": "topic_enc_037", "name": "摩天大楼设计", "status": "pending"},
+        {"id": "topic_enc_038", "name": "跨海大桥技术", "status": "pending"},
+        {"id": "topic_enc_039", "name": "隧道工程", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_014",
+      "name": "航空航天",
+      "topics": [
+        {"id": "topic_enc_040", "name": "火箭推进原理", "status": "pending"},
+        {"id": "topic_enc_041", "name": "空间站生活", "status": "pending"},
+        {"id": "topic_enc_042", "name": "卫星应用技术", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_015",
+      "name": "材料科学",
+      "topics": [
+        {"id": "topic_enc_043", "name": "纳米材料应用", "status": "pending"},
+        {"id": "topic_enc_044", "name": "超导材料研究", "status": "pending"},
+        {"id": "topic_enc_045", "name": "智能材料", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_016",
+      "name": "古代文明",
+      "topics": [
+        {"id": "topic_enc_046", "name": "古埃及金字塔建造", "status": "pending"},
+        {"id": "topic_enc_047", "name": "美索不达米亚文明", "status": "pending"},
+        {"id": "topic_enc_048", "name": "中华文明起源", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_017",
+      "name": "历史事件",
+      "topics": [
+        {"id": "topic_enc_049", "name": "工业革命影响", "status": "pending"},
+        {"id": "topic_enc_050", "name": "文艺复兴运动", "status": "pending"},
+        {"id": "topic_enc_051", "name": "科学革命", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_018",
+      "name": "世界遗产",
+      "topics": [
+        {"id": "topic_enc_052", "name": "长城历史与保护", "status": "pending"},
+        {"id": "topic_enc_053", "name": "雅典卫城", "status": "pending"},
+        {"id": "topic_enc_054", "name": "马丘比丘之谜", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_019",
+      "name": "宗教文化",
+      "topics": [
+        {"id": "topic_enc_055", "name": "世界主要宗教", "status": "pending"},
+        {"id": "topic_enc_056", "name": "宗教艺术形式", "status": "pending"},
+        {"id": "topic_enc_057", "name": "宗教节日传统", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_020",
+      "name": "语言文字",
+      "topics": [
+        {"id": "topic_enc_058", "name": "语言起源理论", "status": "pending"},
+        {"id": "topic_enc_059", "name": "文字演变历史", "status": "pending"},
+        {"id": "topic_enc_060", "name": "濒危语言保护", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_021",
+      "name": "艺术流派",
+      "topics": [
+        {"id": "topic_enc_061", "name": "印象派绘画", "status": "pending"},
+        {"id": "topic_enc_062", "name": "立体主义艺术", "status": "pending"},
+        {"id": "topic_enc_063", "name": "抽象表现主义", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_022",
+      "name": "音乐世界",
+      "topics": [
+        {"id": "topic_enc_064", "name": "古典音乐时期", "status": "pending"},
+        {"id": "topic_enc_065", "name": "世界音乐传统", "status": "pending"},
+        {"id": "topic_enc_066", "name": "电子音乐发展", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_023",
+      "name": "文学经典",
+      "topics": [
+        {"id": "topic_enc_067", "name": "神话传说体系", "status": "pending"},
+        {"id": "topic_enc_068", "name": "世界史诗作品", "status": "pending"},
+        {"id": "topic_enc_069", "name": "现代文学流派", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_024",
+      "name": "电影艺术",
+      "topics": [
+        {"id": "topic_enc_070", "name": "电影技术发展", "status": "pending"},
+        {"id": "topic_enc_071", "name": "世界电影流派", "status": "pending"},
+        {"id": "topic_enc_072", "name": "动画艺术演变", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_025",
+      "name": "建筑风格",
+      "topics": [
+        {"id": "topic_enc_073", "name": "哥特式建筑", "status": "pending"},
+        {"id": "topic_enc_074", "name": "现代主义建筑", "status": "pending"},
+        {"id": "topic_enc_075", "name": "东方建筑特色", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_026",
+      "name": "体育运动",
+      "topics": [
+        {"id": "topic_enc_076", "name": "奥运会历史", "status": "pending"},
+        {"id": "topic_enc_077", "name": "球类运动起源", "status": "pending"},
+        {"id": "topic_enc_078", "name": "极限运动发展", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_027",
+      "name": "美食文化",
+      "topics": [
+        {"id": "topic_enc_079", "name": "发酵食品科学", "status": "pending"},
+        {"id": "topic_enc_080", "name": "世界香料贸易", "status": "pending"},
+        {"id": "topic_enc_081", "name": "分子料理技术", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_028",
+      "name": "服饰时尚",
+      "topics": [
+        {"id": "topic_enc_082", "name": "服装材料科技", "status": "pending"},
+        {"id": "topic_enc_083", "name": "时尚潮流演变", "status": "pending"},
+        {"id": "topic_enc_084", "name": "传统服饰文化", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_029",
+      "name": "心理学",
+      "topics": [
+        {"id": "topic_enc_085", "name": "认知偏差类型", "status": "pending"},
+        {"id": "topic_enc_086", "name": "记忆形成机制", "status": "pending"},
+        {"id": "topic_enc_087", "name": "情绪调节理论", "status": "pending"}
+      ]
+    },
+    {
+      "id": "subtheme_enc_030",
+      "name": "经济金融",
+      "topics": [
+        {"id": "topic_enc_088", "name": "货币政策机制", "status": "pending"},
+        {"id": "topic_enc_089", "name": "金融市场原理", "status": "pending"},
+        {"id": "topic_enc_090", "name": "数字货币发展", "status": "pending"}
+      ]
+    }
+  ],
+  "metadata": {
+    "total_topics": 90,
+    "status_count": {
+      "pending": 89,
+      "generated": 1,
+      "verified": 0,
+      "published": 0,
+      "archived": 0
+    },
+    "created_at": "2026-03-06T00:00:00",
+    "last_updated": "2026-03-06T00:00:00"
+  }
+}
