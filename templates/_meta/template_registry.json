@@ -4,7 +4,7 @@
     {
       "id": "life_tips.short_mobile.v2",
       "theme": "生活小妙招",
-      "path": "templates/life_tips/short_mobile.md",
+      "path": "templates/life_tips/short_mobile_v2.md",
       "symbol_pack": "templates/symbol_packs/life_tips.json",
       "validation": "templates/validation_rules/life_tips.json",
       "description": "手机端短屏模板（1-2次划屏读完）"

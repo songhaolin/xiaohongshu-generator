@@ -7,6 +7,14 @@
     "published",
     "archived"
   ],
-  "themes": [],
-  "last_updated": "2026-03-05T16:30:13"
+  "themes": [
+    {
+      "id": "theme_97b4a2d8",
+      "name": "生活小妙招",
+      "description": "包含厨房、浴室、衣物护理、个人护理等11个子分类的311个实用小妙招",
+      "index_file": "life_tips_topics_index.json",
+      "registered_at": "2026-03-05T17:16:44"
+    }
+  ],
+  "last_updated": "2026-03-05T17:16:44"
 }

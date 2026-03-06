@@ -112,7 +112,7 @@
 
 ## 当前落地模板（生活小妙招）
 
-- 模板：`templates/life_tips/short_mobile.md`
+- 模板：`templates/life_tips/short_mobile_v2.md`
 - 符号包：`templates/symbol_packs/life_tips.json`
 - 校验规则：`templates/validation_rules/life_tips.json`
 

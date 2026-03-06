@@ -126,7 +126,7 @@ Use external template files:
 ## Life Tips Current Production Template
 
 Use:
-- `templates/life_tips/short_mobile.md`
+- `templates/life_tips/short_mobile_v2.md`
 - `templates/symbol_packs/life_tips.json`
 - `templates/validation_rules/life_tips.json`
 

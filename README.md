@@ -25,7 +25,7 @@ xiaohongshu-generator/
 │   └── generator.py
 ├── templates/
 │   ├── _meta/template_registry.json
-│   ├── life_tips/short_mobile.md
+│   ├── life_tips/short_mobile_v2.md
 │   ├── symbol_packs/
 │   └── validation_rules/
 └── examples/
